@@ -36,15 +36,19 @@ describe('unit test library REST API', () => {
         it('should GET list of all available books in library', async function () {
             const res = await Api().get('/books');
             expect(res.status).to.equal(200);
-            // console.log('>>>', res.body.length);
-            // console.log('>>>', books.length);
             expect(res.body.length).to.equal(books.length);
         });
 
         it('should GET a book from library using id', async function () {
-            const id = 23
+            const id = 23;
             const res = await Api().get(`/books/${id}`);
             expect(res.status).to.equal(200);
-        })
+        });
+
+        it('should not GET a non existing book from library', async function () {
+            const id = 44;
+            const res = await Api().get(`/books/${id}`);
+            expect(res.status).to.equal(404);
+        });
     });
 });

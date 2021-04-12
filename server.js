@@ -17,22 +17,28 @@ app.get("/books", (req, res) => {
 });
   
 app.get("/books/:id", (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
+   
     const oneBook = books.filter(
       item => item.id === (+id)
-    )
-    console.log(oneBook);
+    );
+    // console.log(oneBook.length);
+
+    if (oneBook.length === 0) {
+        return res.sendStatus(404);
+    }
+
     res.json(oneBook);
 });
 
 // launch the server and listen only when running as a standalone process
 if (!module.parent) {
-      // start listening iff all good... 
+      // start listening if all good... 
       app.listen(port, async () => {
         console.log(
-          `Conduits API server is listening on port ${port}`
+          `API server is listening on port ${port}`
         );
-      });
+    });
     
 }
   
