@@ -31,6 +31,22 @@ app.get("/books/:id", (req, res) => {
     res.json(oneBook);
 });
 
+app.delete('/books/:id', (req, res) => {
+    const { id } = req.params;
+   
+    const findBook = books.findIndex(
+      item => item.id === (+id)
+    );
+
+    if (findBook < 0) {
+        return res.sendStatus(404);
+    }
+    
+    let deleteBook = books.splice(findBook, 1);
+  
+    res.sendStatus(200);
+});
+
 // launch the server and listen only when running as a standalone process
 if (!module.parent) {
       // start listening if all good... 

@@ -50,5 +50,19 @@ describe('unit test library REST API', () => {
             const res = await Api().get(`/books/${id}`);
             expect(res.status).to.equal(404);
         });
+
+        it('should DELETE a book from library', async function () {
+            const id = 23;
+            const res = await Api()
+              .delete(`/books/${id}`);
+            expect(res.status).to.equal(200);
+        });
+
+        it('should not DELETE an non existing book from library', async function () {
+            const id = 44;
+            const res = await Api()
+              .delete(`/books/${id}`);
+            expect(res.status).to.equal(404);
+        });
     });
 });
